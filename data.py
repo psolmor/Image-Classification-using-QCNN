@@ -24,9 +24,5 @@ def data_load_and_process(dataset="mnist"):
     x_test = tf.image.resize(x_test[:], (256, 1), method="bilinear").numpy().squeeze()
 
     print("Data is ready")
-    print(y_train.shape)
 
     return x_train, x_test, y_train, y_test
-
-
-data_load_and_process()
