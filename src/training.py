@@ -16,3 +16,28 @@ def cost(params, X, Y, U, U_params,circuit):
     loss = square_loss(Y, predictions)
 
     return loss
+
+
+steps=200
+learning_rate=0.01
+batch_size=25
+
+def circuit_training(X_train, Y_train, U, U_params, circuit):
+
+    total_params = U_params * 3 + 2 * 3
+
+
+    params = np.random.randn(total_params, requires_grad=True)
+    opt = qml.NesterovMomentumOptimizer(stepsize=learning_rate)
+    loss_history = []
+
+    for it in range(steps):
+        batch_index = np.random.randint(0, len(X_train), (batch_size,))
+        X_batch = [X_train[i] for i in batch_index]
+        Y_batch = [Y_train[i] for i in batch_index]
+        params, cost_new = opt.step_and_cost(lambda v: cost(v, X_batch, Y_batch, U, U_params, circuit),
+                                                     params)
+        loss_history.append(cost_new)
+        if it % 10 == 0:
+            print("iteration: ", it, " cost: ", cost_new)
+    return loss_history, params
