@@ -1,5 +1,4 @@
 import components 
-import embedding
 import pennylane as qml
 
 def QCNN_structure(U,params,U_params):
@@ -10,7 +9,6 @@ def QCNN_structure(U,params,U_params):
     param5 = params[3 * U_params + 2: 3 * U_params + 4]
     param6 = params[3 * U_params + 4: 3 * U_params + 6]
 
-    # Pooling Ansatz1 is used by default
     components.conv_layer1(U, param1)
     components.pooling_layer1(components.pooling_circuit, param4)
     components.conv_layer2(U, param2)
@@ -21,16 +19,10 @@ def QCNN_structure(U,params,U_params):
 
 dev = qml.device('default.qubit', wires = 8)
 @qml.qnode(dev)
-def QCNN(X, params, U, U_params, embedding_type='Amplitude'):
+def QCNN(X, params, U, U_params):
 
-    embedding.data_embedding(X, embedding_type=embedding_type)
 
-    if U == 'U_TTN':
-        QCNN_structure(components.U_TTN, params, U_params)
-    else:
-        print("Invalid Unitary Ansatze")
-        return False
-
+    QCNN_structure(components.U_TTN, params, U_params)
     result = qml.expval(qml.PauliZ(4))
 
     return result
