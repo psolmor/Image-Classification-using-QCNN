@@ -19,7 +19,7 @@ def cost(params, X, Y):
 
 
 steps=200
-learning_rate=0.001
+learning_rate=0.01
 batch_size=25
 
 def circuit_training(X_train, Y_train):
