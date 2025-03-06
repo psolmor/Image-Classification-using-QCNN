@@ -1,0 +1,24 @@
+Numbers: 0 and 1
+Time elapsed: 329.25 seconds
+Test accuracy: 87.04%
+
+Numbers: 2 and 3
+Time elapsed: 312.33 seconds
+Test accuracy: 85.26%
+
+Numbers: 4 and 5
+Time elapsed: 291.63 seconds
+Test accuracy: 79.19%
+
+Numbers: 6 and 7
+Time elapsed: 277.09 seconds
+Test accuracy: 80.92%
+
+Numbers: 8 and 9
+Time elapsed: 276.96 seconds
+Test accuracy: 60.51%
+
+Numbers: 0 and 2
+Time elapsed: 277.41 seconds
+Test accuracy: 93.39%
+
