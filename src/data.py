@@ -29,6 +29,9 @@ def data_load_and_process():
     x_test = np.array(x_test_filtered)
     y_test = np.array(y_test_filtered)
 
+    y_train = [1 if y==1 else -1 for y in y_train]
+    y_test = [1 if y==1 else -1 for y in y_test]
+
     """"
     fig, axes = plt.subplots(1, 4, figsize=(10, 3))
     for i, ax in enumerate(axes):
