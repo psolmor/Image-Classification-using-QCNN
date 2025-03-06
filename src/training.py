@@ -25,11 +25,7 @@ batch_size=25
 def circuit_training(X_train, Y_train):
 
     total_params = 12
-
-
     params = pnp.array(pnp.random.randn(total_params), requires_grad=True)
-    #params = pnp.full(total_params, pnp.pi / 2, requires_grad=True)
-
     opt = qml.AdamOptimizer(stepsize=learning_rate)
        
     def cost_fn(params):
@@ -43,9 +39,6 @@ def circuit_training(X_train, Y_train):
 
     for it in range(steps):
 
-        #batch_index = pnp.random.randint(0, len(X_train), batch_size)
-        #X_batch = [X_train[i] for i in batch_index]
-        #Y_batch = [Y_train[i] for i in batch_index]
         
         params, cost_new = opt.step_and_cost(cost_fn,params)
         loss_history.append(cost_new)

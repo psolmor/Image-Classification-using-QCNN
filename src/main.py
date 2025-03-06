@@ -1,6 +1,6 @@
 import data
 import training
-import benchmark
+import testing
 import circuit
 import numpy as np
 import matplotlib.pyplot as plt
@@ -18,7 +18,7 @@ plt.show()
 
 print("Benchmarking...")
 predictions = [circuit.QCNN(x, trained_params) for x in x_test]
-test_accuracy = benchmark.accuracy_test(predictions, y_test)
+test_accuracy = testing.accuracy_test(predictions, y_test)
 print(f"Accuracy of test set: {test_accuracy * 100:.2f}%")
 
 
