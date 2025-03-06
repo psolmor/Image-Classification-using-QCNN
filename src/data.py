@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 def data_load_and_process():
     
-    print("Loading data...")
+    print("Loading data....")
     (x_train,y_train),(x_test,y_test)=tf.keras.datasets.mnist.load_data()
 
 
