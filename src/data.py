@@ -15,8 +15,8 @@ def data_load_and_process(dataset="mnist"):
 
     x_train, x_test = x_train[..., np.newaxis] / 255.0, x_test[..., np.newaxis] / 255.0  
 
-    y_train = np.where(y_train >= 4, 1, -1)
-    y_test = np.where(y_test >= 4, 1, -1)
+    y_train = np.where(y_train > 4, 1, -1)
+    y_test = np.where(y_test > 4, 1, -1)
 
     print("Resizing image with linear interpolation and flattening vector...")
 

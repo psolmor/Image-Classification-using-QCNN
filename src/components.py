@@ -11,7 +11,7 @@ def U_TTN(params, wires):  # 2 params
     qml.RY(params[1], wires=wires[1])
     qml.CNOT(wires=[wires[0], wires[1]])
 
-#Circuits for conv layers
+#conv layers
 def conv_layer1(U, params):
     U(params, wires=[0, 7])
 
@@ -30,7 +30,7 @@ def conv_layer2(U, params):
 def conv_layer3(U, params):
     U(params, wires=[0,4])
 
-# Quantum Circuits for Pooling layers
+# Pooling layers
 def pooling_layer1(V, params):
     for i in range(0, 8, 2):
         V(params, wires=[i + 1, i])
