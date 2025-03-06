@@ -14,3 +14,14 @@ This work takes direct inspiration from this [previous work](https://arxiv.org/a
 2. `embedding.py`
    - Contains functions for embedding classical data into quantum states.
    - The `data_embedding` function takes the preprocessed data and embeds it into a quantum state using amplitude encoding. By default the chosen method will be amplitude embedding for 8 qubits.
+
+3. `QCNN_circuit.py`
+   - Defines the quantum convolutional neural network (QCNN) circuit. This file contains the overall architecture of the QCNN.
+   - The `qcnn` function constructs the QCNN circuit and returns the output probabilities.
+
+5. `components.py`
+   - Defines  unitary operations and alyers used in the QCNN. .
+
+6. `training.py`
+   - Contains the training loop for the QCNN. This file includes functions to train the QCNN using a specified dataset. Corrently used "mse"
+   - The `circuit_training` function trains the QCNN using the Adam optimizer and returns the loss history and trained parameters.
