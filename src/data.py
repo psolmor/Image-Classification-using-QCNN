@@ -3,7 +3,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt 
 
 
-def data_load_and_process():
+def data_load_and_process(number1,number2):
     
     print("Loading data....")
     (x_train,y_train),(x_test,y_test)=tf.keras.datasets.mnist.load_data()
@@ -13,14 +13,14 @@ def data_load_and_process():
     x_train_filtered = []
     y_train_filtered = []
     for i in range(len(y_train)):
-        if y_train[i] == 6 or y_train[i] == 9:
+        if y_train[i] == number1 or y_train[i] == number2:
             x_train_filtered.append(x_train[i])
             y_train_filtered.append(y_train[i])
 
     x_test_filtered = []
     y_test_filtered = []
     for i in range(len(y_test)):
-        if y_test[i] == 6 or y_test[i] == 9:
+        if y_test[i] == number1 or y_test[i] == number2:
             x_test_filtered.append(x_test[i])
             y_test_filtered.append(y_test[i])
 
@@ -29,8 +29,8 @@ def data_load_and_process():
     x_test = np.array(x_test_filtered)
     y_test = np.array(y_test_filtered)
 
-    y_train = [1 if y==6 else -1 for y in y_train]
-    y_test = [1 if y==6 else -1 for y in y_test]
+    y_train = [1 if y==number1 else -1 for y in y_train]
+    y_test = [1 if y==number1 else -1 for y in y_test]
 
     """"
     fig, axes = plt.subplots(1, 4, figsize=(10, 3))
