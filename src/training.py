@@ -13,9 +13,9 @@ def square_loss(labels, predictions):
     return loss
 
 #Cost function
-def cost(params, X, Y,unitary):
+def cost(params, X, Y,unitary,embedding):
   
-    predictions = [circuit.QCNN(x,params,unitary) for x in X]
+    predictions = [circuit.QCNN(x,params,unitary,embedding) for x in X]
     loss = square_loss(Y, predictions)
 
     return loss
@@ -28,7 +28,7 @@ learning_rate=0.01
 batch_size=25
 
 #Function in charge to optimize the circuit
-def circuit_training(X_train, Y_train,params_num,unitary):
+def circuit_training(X_train, Y_train,params_num,unitary,embedding):
 
     total_params = params_num
 
@@ -45,7 +45,7 @@ def circuit_training(X_train, Y_train,params_num,unitary):
         batch_index = pnp.random.randint(0, len(X_train), batch_size)
         X_batch = [X_train[i] for i in batch_index]
         Y_batch = [Y_train[i] for i in batch_index]
-        return cost(params, X_batch, Y_batch,unitary)
+        return cost(params, X_batch, Y_batch,unitary,embedding)
 
 
     for it in range(steps):

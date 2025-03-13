@@ -1,6 +1,6 @@
 import components 
 import pennylane as qml
-import embedding 
+import embedding as emb
 
 def QCNN_structure(U,params,U_params):
     
@@ -21,10 +21,10 @@ def QCNN_structure(U,params,U_params):
 
 dev = qml.device('default.qubit', wires = 8)
 @qml.qnode(dev)
-def QCNN(X, params,unitary):
+def QCNN(X, params,unitary,embedding):
 
     
-    embedding.data_embedding(X)
+    emb.data_embedding(X,embedding)
 
     if unitary=="TTN":
         U_params = 2 
