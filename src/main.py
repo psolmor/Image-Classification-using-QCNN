@@ -1,7 +1,8 @@
 import benchmark
 
-number_pairs = [(0, 1), (2, 3), (4, 5)]
-unitary_circuit= ["TTN"]
 
-benchmark.benchmark(number_pairs)
+number_pairs = [(0, 1),(2,3)] # [(0, 1),(2,3)...]
+unitary_circuit=["CONV","TTN"] # "TTN" "CONV"
+params_num=15 # TTN=12 CONV=15
 
+benchmark.benchmark(number_pairs,params_num,unitary_circuit)
