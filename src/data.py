@@ -32,15 +32,6 @@ def data_load_and_process(number1,number2):
     y_train = [1 if y==number1 else -1 for y in y_train]
     y_test = [1 if y==number1 else -1 for y in y_test]
 
-    """"
-    fig, axes = plt.subplots(1, 4, figsize=(10, 3))
-    for i, ax in enumerate(axes):
-        ax.imshow(x_train[i].reshape(28, 28), cmap='gray')
-        ax.set_title(f"Label: {y_train[i]}")
-        ax.axis('off')
-    plt.show()
-    """
-
     print("Data loaded, normalization...")    
 
     x_train, x_test = x_train[..., np.newaxis] / 255.0, x_test[..., np.newaxis] / 255.0  
