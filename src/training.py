@@ -39,8 +39,8 @@ def circuit_training(X_train, Y_train,params_num,unitary,embedding):
         total_params=15
        
     params = pnp.array(pnp.random.randn(total_params), requires_grad=True)
-    opt = qml.AdamOptimizer(stepsize=learning_rate)
-       
+    #opt = qml.AdamOptimizer(stepsize=learning_rate)
+    opt=qml.NesterovMomentumOptimizer(stepsize=learning_rate) 
     def cost_fn(params):
         batch_index = pnp.random.randint(0, len(X_train), batch_size)
         X_batch = [X_train[i] for i in batch_index]
