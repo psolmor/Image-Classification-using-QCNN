@@ -28,9 +28,9 @@ learning_rate=0.01
 batch_size=25
 
 #Function in charge to optimize the circuit
-def circuit_training(X_train, Y_train,params_num,unitary,embedding):
+def circuit_training(X_train, Y_train,unitary,embedding):
 
-    total_params = params_num
+    total_params = 0
 
 
     if unitary=="TTN":

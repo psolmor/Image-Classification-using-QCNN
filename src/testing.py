@@ -6,7 +6,8 @@ def accuracy_test(predictions, labels):
     for l, p in zip(labels, predictions):
         if np.abs(l - p) < 1:
             acc = acc + 1
-        if counter%10==0:
+        if counter%200==0:
             print(f"Testing image: {counter}/{len(predictions)}")
+        counter+=1
     return acc / len(labels)
 
