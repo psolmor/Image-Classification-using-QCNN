@@ -4,18 +4,18 @@ import matplotlib.pyplot as plt
 
 def plot_comparison(original, resized, title="Comparison of Images"):
     num_images = len(original)
-    fig, axes = plt.subplots(num_images, 2, figsize=(8, 4 * num_images))
+    fig, axes = plt.subplots(2, num_images, figsize=(8, 4 * num_images))
 
     for i in range(num_images):
         # Mostrar imagen original
-        axes[i, 0].imshow(original[i], cmap="gray")
-        axes[i, 0].set_title("Original (28x28)")
-        axes[i, 0].axis("off")
+        axes[0, i].imshow(original[i], cmap="gray")
+        axes[0, i].set_title("Original (28x28)")
+        axes[0, i].axis("off")
 
         # Mostrar imagen redimensionada
-        axes[i, 1].imshow(resized[i], cmap="gray")
-        axes[i, 1].set_title("Resized (16x16)")
-        axes[i, 1].axis("off")
+        axes[1, i].imshow(resized[i], cmap="gray")
+        axes[1, i].set_title("Resized (16x16)")
+        axes[1, i].axis("off")
 
     plt.suptitle(title)
     plt.tight_layout()
