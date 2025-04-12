@@ -1,32 +1,32 @@
 import numpy as np 
 import tensorflow as tf 
 import matplotlib.pyplot as plt 
-from sklearn.decomposition import PCA
 
-def plot_comparison(original, bilinear, nearest,area, title="Comparison of Images"):
+
+def plot_comparison(original, bilinear, nearest, area, title="Comparison of Images"):
     num_images = len(original)
-    fig, axes = plt.subplots(4, num_images, figsize=(8, 4 * num_images))
+    fig, axes = plt.subplots(num_images, 4, figsize=(12, 3 * num_images))  
 
     for i in range(num_images):
         # Mostrar imagen original
-        axes[0, i].imshow(original[i], cmap="gray")
-        axes[0, i].set_title("Original (28x28)")
-        axes[0, i].axis("off")
+        axes[i, 0].imshow(original[i], cmap="gray")
+        axes[i, 0].set_title("Original (28x28)", fontsize=10)
+        axes[i, 0].axis("off")
 
         # Mostrar imagen redimensionada con interpolación bilineal
-        axes[1, i].imshow(bilinear[i], cmap="gray")
-        axes[1, i].set_title("Bilinear Resized (16x16)")
-        axes[1, i].axis("off")
-
-        # Mostrar imagen redimensionada con interpolación neares
-        axes[2, i].imshow(nearest[i], cmap="gray")
-        axes[2, i].set_title("Nearest Resized (16x16)")
-        axes[2, i].axis("off")
+        axes[i, 1].imshow(bilinear[i], cmap="gray")
+        axes[i, 1].set_title("Bilinear (16x16)", fontsize=10)
+        axes[i, 1].axis("off")
 
         # Mostrar imagen redimensionada con interpolación nearest
-        axes[3, i].imshow(area[i], cmap="gray")
-        axes[3, i].set_title("Area Resized (16x16)")
-        axes[3, i].axis("off")
+        axes[i, 2].imshow(nearest[i], cmap="gray")
+        axes[i, 2].set_title("Nearest (16x16)", fontsize=10)
+        axes[i, 2].axis("off")
+
+        # Mostrar imagen redimensionada con interpolación area
+        axes[i, 3].imshow(area[i], cmap="gray")
+        axes[i, 3].set_title("Area (16x16)", fontsize=10)
+        axes[i, 3].axis("off")
 
     plt.suptitle(title)
     plt.tight_layout()
