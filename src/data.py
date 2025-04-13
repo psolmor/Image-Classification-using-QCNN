@@ -3,7 +3,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt 
 
 
-def data_load_and_process(number1,number2):
+def data_load_and_process(number1,number2,resize):
     
     print("Loading data....")
     (x_train,y_train),(x_test,y_test)=tf.keras.datasets.mnist.load_data()
@@ -38,11 +38,19 @@ def data_load_and_process(number1,number2):
 
 
 
-    print("Resizing image with linear interpolation and flattening vector...")
+    print(f"Resizing image using {resize} resizing and flattening vector...")
 
-    x_train = tf.image.resize(x_train[:], (256, 1), method="bilinear").numpy().squeeze()
-    x_test = tf.image.resize(x_test[:], (256, 1), method="bilinear").numpy().squeeze()
+    if resize=="bilinear":
+        x_train = tf.image.resize(x_train[:], (256, 1), method="bilinear").numpy().squeeze()
+        x_test = tf.image.resize(x_test[:], (256, 1), method="bilinear").numpy().squeeze()
+    elif resize=="area":
+        x_train = tf.image.resize(x_train[:], (256, 1), method="area").numpy().squeeze()
+        x_test = tf.image.resize(x_test[:], (256, 1), method="area").numpy().squeeze()
+    elif resize=="nearest":
+        x_train = tf.image.resize(x_train[:], (256, 1), method="nearest").numpy().squeeze()
+        x_test = tf.image.resize(x_test[:], (256, 1), method="nearest").numpy().squeeze()
 
+    
     print("Data is ready")
 
     return x_train, x_test, y_train, y_test
