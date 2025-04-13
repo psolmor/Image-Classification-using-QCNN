@@ -3,24 +3,27 @@ import tensorflow as tf
 import matplotlib.pyplot as plt 
 
 
-def data_load_and_process(number1,number2,resize):
+def data_load_and_process(class1,class2,resize,dataset="mnist"):
     
     print("Loading data....")
-    (x_train,y_train),(x_test,y_test)=tf.keras.datasets.mnist.load_data()
+    if dataset == 'fashion_mnist':
+        (x_train, y_train), (x_test, y_test) = tf.keras.datasets.fashion_mnist.load_data()
+    elif dataset == 'mnist':
+        (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
 
 
     print("Filtering data...")
     x_train_filtered = []
     y_train_filtered = []
     for i in range(len(y_train)):
-        if y_train[i] == number1 or y_train[i] == number2:
+        if y_train[i] == class1 or y_train[i] == class2:
             x_train_filtered.append(x_train[i])
             y_train_filtered.append(y_train[i])
 
     x_test_filtered = []
     y_test_filtered = []
     for i in range(len(y_test)):
-        if y_test[i] == number1 or y_test[i] == number2:
+        if y_test[i] == class1 or y_test[i] == class2:
             x_test_filtered.append(x_test[i])
             y_test_filtered.append(y_test[i])
 
@@ -29,8 +32,8 @@ def data_load_and_process(number1,number2,resize):
     x_test = np.array(x_test_filtered)
     y_test = np.array(y_test_filtered)
 
-    y_train = [1 if y==number1 else -1 for y in y_train]
-    y_test = [1 if y==number1 else -1 for y in y_test]
+    y_train = [1 if y==class1 else -1 for y in y_train]
+    y_test = [1 if y==class1 else -1 for y in y_test]
 
     print("Data loaded, normalization...")    
 
