@@ -27,3 +27,6 @@ Use `main.py` train and test de QCNN.
 6. `training.py`
    - Contains the training loop for the QCNN. This file includes functions to train the QCNN using a specified dataset. Corrently used "mse"
    - The `circuit_training` function trains the QCNN using the Adam optimizer and returns the loss history and trained parameters.
+
+7. `utils.py`
+   - Contains smaller functions used in the code.
