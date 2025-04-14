@@ -3,7 +3,7 @@ import utils
 
 #Here the nechmark is set up by hardcodding the desired parameters
 
-dataset="fashion_mnist" # 'fashion_mnist' "mnist"
+dataset="mnist" # 'fashion_mnist' "mnist"
 class_pairs = [(0, 1)] # [(0, 1),(2,3)...]
 unitary_circuit=["TTN"] # "TTN" "CONV"
 resize=["area","bilinear","nearest"] # "area" "bilinear" "nearest"

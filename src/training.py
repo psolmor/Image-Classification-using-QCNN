@@ -1,7 +1,6 @@
 import circuit
-import pennylane as qml
-import numpy as np
 import pennylane.numpy as pnp
+from pennylane.optimize import NesterovMomentumOptimizer,AdamOptimizer
 
 #Loss Functions
 
@@ -39,8 +38,8 @@ def circuit_training(X_train, Y_train,unitary,embedding):
         total_params=15
        
     params = pnp.array(pnp.random.randn(total_params), requires_grad=True)
-    #opt = qml.AdamOptimizer(stepsize=learning_rate)
-    opt=qml.NesterovMomentumOptimizer(stepsize=learning_rate) 
+    #opt = AdamOptimizer(stepsize=learning_rate)
+    opt=NesterovMomentumOptimizer(stepsize=learning_rate) 
     def cost_fn(params):
         batch_index = pnp.random.randint(0, len(X_train), batch_size)
         X_batch = [X_train[i] for i in batch_index]
