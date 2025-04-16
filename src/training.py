@@ -1,6 +1,7 @@
 import circuit
 import pennylane.numpy as pnp
 from pennylane.optimize import NesterovMomentumOptimizer,AdamOptimizer
+import utils
 
 #Loss Functions
 
@@ -28,18 +29,11 @@ batch_size=25
 
 #Function in charge to optimize the circuit
 def circuit_training(X_train, Y_train,unitary,embedding):
-
-    total_params = 0
-
-
-    if unitary=="TTN":
-        total_params=12
-    elif unitary=="CONV":
-        total_params=15
        
-    params = pnp.array(pnp.random.randn(total_params), requires_grad=True)
+    params = pnp.array(pnp.random.randn(utils.param_num(unitary)), requires_grad=True)
     #opt = AdamOptimizer(stepsize=learning_rate)
     opt=NesterovMomentumOptimizer(stepsize=learning_rate) 
+    
     def cost_fn(params):
         batch_index = pnp.random.randint(0, len(X_train), batch_size)
         X_batch = [X_train[i] for i in batch_index]

@@ -16,10 +16,12 @@ def U_CONV(params,wires): # 3 params
     qml.RZ(-np.pi/2,wires=wires[1])
     qml.CNOT(wires=[wires[1], wires[0]])
     qml.RZ(params[0],wires=wires[0])
-    qml.RZ(params[1],wires=wires[1])
+    qml.RY(params[1],wires=wires[1])
     qml.CNOT(wires=[wires[0], wires[1]])
-    qml.RZ(params[2],wires=wires[1])
+    qml.RY(params[2],wires=wires[1])
     qml.CNOT(wires=[wires[1], wires[0]])
     qml.RZ(np.pi/2,wires=wires[0])
+
+
 
 
