@@ -8,7 +8,7 @@ The whole project is written in python. Tensorflow and numpy is required for the
 
 This work takes direct inspiration from this [previous work](https://arxiv.org/abs/2108.00661)
 
-Use `main.py` train and test de QCNN.
+Use `python main.py` to run the benchmark.
 
 ## Components
 1. `data.py` 
@@ -33,3 +33,32 @@ Use `main.py` train and test de QCNN.
 
 7. `utils.py`
    - Contains smaller functions used in the code.
+
+## References
+
+1. **Quantum Convolutional Neural Networks**  
+   Henderson et al.  
+   [arXiv:2108.00661](https://arxiv.org/abs/2108.00661)  
+   *Original paper inspiring this implementation*
+
+2. **PennyLane Quantum Machine Learning**  
+   Xanadu AI  
+   [PennyLane Documentation](https://pennylane.ai/)  
+   *Quantum framework used for circuit construction*
+
+3. **MNIST Dataset**  
+   Yann LeCun et al.  
+   [Official MNIST Website](http://yann.lecun.com/exdb/mnist/)  
+   *Standard handwritten digit dataset*
+
+4. **Fashion-MNIST Dataset**  
+   Zalando Research  
+   [GitHub Repository](https://github.com/zalandoresearch/fashion-mnist)  
+   *Clothing item classification dataset*
+
+5.  **Quantum Computation and Quantum Information**  
+   Michael A. Nielsen & Isaac L. Chuang  
+   Cambridge University Press (2010)  
+   *The standard textbook on quantum computing fundamentals*  
+   [ISBN: 978-1-107-00217-3](https://doi.org/10.1017/CBO9780511976667)
+
