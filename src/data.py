@@ -1,4 +1,5 @@
 import numpy as np 
+import pennylane.numpy as pnp 
 import tensorflow as tf 
 
 def data_load_and_process(class1,class2,resize,dataset="mnist"):
@@ -54,5 +55,5 @@ def data_load_and_process(class1,class2,resize,dataset="mnist"):
     
     print("Data is ready")
 
-    return x_train, x_test, y_train, y_test
+    return (pnp.array(x_train), pnp.array(x_test),pnp.array(y_train),pnp.array(y_test))
 
