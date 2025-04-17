@@ -1,4 +1,7 @@
-# Image-Classification-using-QCNN
+# Quantum Convolutional Neural Network (QCNN) for Image Classification
+
+<img src="https://img.shields.io/badge/Python-3.8%2B-blue" alt="Python"> <img src="https://img.shields.io/badge/Framework-PennyLane-blueviolet" alt="PennyLane"> <img src="https://img.shields.io/badge/Quantum-QCNN-success" alt="Quantum">
+
 Development of a quantum convolutional neural network for image classification. This code specializes in binary classification. Different convolution and embedding methods will be used for testing.  
 
 The whole project is written in python. Tensorflow and numpy is required for the data treatment. The quantum simulation is done using the framework [pennylane](https://pennylane.ai/)
