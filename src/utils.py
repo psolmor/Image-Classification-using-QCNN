@@ -1,11 +1,16 @@
 def param_num(unitary):
-    """Return the total number of params for a given component"""
-    if unitary == "TTN":
-        return 40 
-    elif unitary == "CONV":
-        return 60  
+    """Calculate total parameters needed for the circuit"""
+
+    if unitary == "CONV":
+        return 57
+    elif unitary == "TTN":
+        return 45 
     else:
-        raise ValueError("Component must be 'TTN' or 'CONV'")
+        raise ValueError("Unitary must be 'CONV' or 'TTN'")
+    
+
+
+
     
 def get_label(label, dataset):
     """
