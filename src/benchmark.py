@@ -11,10 +11,11 @@ def benchmark(class_pairs, unitary_arr, embedding,resize,dataset):
     # Abrir el archivo en modo de adición
     with open(results_file, "a") as f:
         f.write("#################################\n")
+        f.write(f"{time.ctime()}\n")
         for unitary in unitary_arr:
             for class1, class2 in class_pairs:
                 for resizing_method in resize:
-                   
+                    
                     print(f"Parameters: {utils.get_label(class1,dataset)} {utils.get_label(class2,dataset)}, unitary {unitary}, embedding {embedding}, resize {resizing_method} ")
                     x_train, x_test, y_train, y_test = data.data_load_and_process(class1, class2, resizing_method, dataset)
                 
