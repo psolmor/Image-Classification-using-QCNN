@@ -51,7 +51,6 @@ def data_load_and_process(class1,class2,resize,dataset="mnist"):
     elif resize=="nearest":
         x_train = tf.image.resize(x_train[:], (256, 1), method="nearest").numpy().squeeze()
         x_test = tf.image.resize(x_test[:], (256, 1), method="nearest").numpy().squeeze()
-
     
     print("Data is ready")
 

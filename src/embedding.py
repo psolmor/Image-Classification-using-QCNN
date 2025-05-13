@@ -7,3 +7,4 @@ def data_embedding(X,embedding):
         AmplitudeEmbedding(X,wires=range(8),normalize=True)
         #print("Amplitude Embedding done")
 
+
