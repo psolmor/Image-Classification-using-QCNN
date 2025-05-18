@@ -28,12 +28,11 @@ def plot_comparison(original, bilinear, nearest, area, title="Comparison of Imag
         axes[i, 3].set_title("Area (16x16)", fontsize=10)
         axes[i, 3].axis("off")
 
-    plt.suptitle(title)
     plt.tight_layout()
     plt.savefig("Original_vs_Resized.png")
     plt.show()
 
-(x_train, y_train), (x_test, y_test) = tf.keras.datasets.fashion_mnist.load_data()
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
 
 x_train_sample = np.array([x_train[i] for i in range(3)])
 
