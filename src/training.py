@@ -1,3 +1,5 @@
+# training.py
+
 import pennylane.numpy as pnp
 import numpy as np 
 import pennylane as qml
@@ -8,12 +10,11 @@ import circuit
 def circuit_training(X_train, Y_train, unitary, embedding):
 
     num_params = utils.param_num(unitary)
-    params = pnp.array(np.random.uniform(0, 2*np.pi, size=num_params),requires_grad=True)
+    params = pnp.array(np.random.uniform(0, 2*np.pi, size=num_params), requires_grad=True)
     
     opt = qml.NesterovMomentumOptimizer(stepsize=0.01)
 
     for it in range(200):
-    
         batch_indices = np.random.randint(0, len(X_train), size=25)
         X_batch = X_train[batch_indices]
         Y_batch = Y_train[batch_indices]

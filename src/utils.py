@@ -7,11 +7,7 @@ def param_num(unitary):
         return 45 
     else:
         raise ValueError("Unitary must be 'CONV' or 'TTN'")
-    
-
-
-
-    
+       
 def get_label(label, dataset):
     """
     Returns the description of a label for either MNIST or Fashion MNIST.
