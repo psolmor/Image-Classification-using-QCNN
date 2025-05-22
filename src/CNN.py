@@ -4,10 +4,12 @@ import torch.nn as nn
 import numpy as np
 import time
 import utils
-import matplotlib.pyplot as plt  # <-- Import para plotear
+import matplotlib.pyplot as plt
+
 
 def get_n_params(model):
     return sum(p.numel() for p in model.parameters())
+
 
 def accuracy_test(predictions, labels):
     acc = 0
@@ -16,6 +18,7 @@ def accuracy_test(predictions, labels):
         if pred == l:
             acc += 1
     return acc / len(labels)
+
 
 def Benchmarking_CNN(class_pairs, Encodings, Encodings_size, dataset, iterations, optimizer, n_feature=2):
     results_file = "results_CNN.txt"
@@ -49,10 +52,10 @@ def Benchmarking_CNN(class_pairs, Encodings, Encodings_size, dataset, iterations
                         nn.Linear(n_feature * final_layer_size, 2)
                     )
 
-                    criterion = nn.CrossEntropyLoss()
+                    criterion = nn.MSELoss()
                     if optimizer == 'adam':
                         opt = torch.optim.Adam(CNN.parameters(), lr=0.01)
-                    elif optimizer == 'nesterov':
+                    else:
                         opt = torch.optim.SGD(CNN.parameters(), lr=0.01, momentum=0.9, nesterov=True)
 
                     batch_size = 25
@@ -64,6 +67,7 @@ def Benchmarking_CNN(class_pairs, Encodings, Encodings_size, dataset, iterations
                         idx = np.random.choice(len(X_train), batch_size, replace=False)
                         X_batch = torch.tensor(X_train[idx], dtype=torch.float32).view(batch_size, 1, input_size)
                         Y_batch = torch.tensor(Y_train[idx], dtype=torch.long)
+                        Y_batch = torch.nn.functional.one_hot(Y_batch, num_classes=2).float()
 
                         opt.zero_grad()
                         outputs = CNN(X_batch)
@@ -84,32 +88,46 @@ def Benchmarking_CNN(class_pairs, Encodings, Encodings_size, dataset, iterations
 
                     print(f"Iteration {it+1}: Time Training: {end_time - start_time:.2f}s, Test accuracy: {acc * 100:.2f}%")
 
+                # compute summary stats
                 avg_time = np.mean(training_times)
                 std_time = np.std(training_times)
                 avg_acc = np.mean(test_accuracies)
                 std_acc = np.std(test_accuracies)
                 N_params = get_n_params(CNN)
 
-                f.write(f"Parameters:\n{utils.get_label(class1,dataset)} {utils.get_label(class2,dataset)}\n")
+                # write results
+                f.write(f"Parameters:\n{utils.get_label(class1,dataset)} vs {utils.get_label(class2,dataset)}\n")
                 f.write(f"Encoding (Resize): {encoding}\n")
                 f.write(f"Number_parameters: {N_params}\n")
-                f.write(f"Training Time: {avg_time:.2f} ± {std_time:.2f} seconds (mean ± std)\n")
-                f.write(f"Test accuracy: {avg_acc * 100:.2f}% ± {std_acc * 100:.2f}% (mean ± std)\n\n")
+                f.write(f"Training Time: {avg_time:.2f} ± {std_time:.2f} s\n")
+                f.write(f"Test accuracy: {avg_acc*100:.2f}% ± {std_acc*100:.2f}%\n\n")
 
                 print(f"\nSummary for this configuration:")
-                print(f"Average Training Time: {avg_time:.2f} ± {std_time:.2f} seconds")
-                print(f"Average Test Accuracy: {avg_acc * 100:.2f}% ± {std_acc * 100:.2f}%")
+                print(f"Average Training Time: {avg_time:.2f} ± {std_time:.2f} s")
+                print(f"Average Test Accuracy: {avg_acc*100:.2f}% ± {std_acc*100:.2f}%")
                 print(f"Number of Parameters: {N_params}\n")
 
-                # Plot promedio del loss
-                avg_losses = np.mean(np.array(all_losses), axis=0)
+                # evolution of loss: mean and std
+                all_losses_np = np.array(all_losses)  # shape (iterations, steps)
+                mean_loss = all_losses_np.mean(axis=0)
+                std_loss = all_losses_np.std(axis=0)
+
+                # save to files
+                np.savetxt(f"CNN_loss_mean_{class1}_{class2}_{encoding}.txt", mean_loss)
+                np.savetxt(f"CNN_loss_std_{class1}_{class2}_{encoding}.txt", std_loss)
+
+                # plot with shaded std band
                 plt.figure()
-                plt.plot(avg_losses)
+                x = np.arange(len(mean_loss))
+                plt.plot(x, mean_loss, label="MSE loss mean")
+                plt.fill_between(x, mean_loss - std_loss, mean_loss + std_loss, alpha=0.3, label="±1 std")
                 plt.xlabel("Training Step")
-                plt.ylabel("Loss")
-                plt.title(f"Avg. Training Loss - {utils.get_label(class1,dataset)} vs {utils.get_label(class2,dataset)} (n_feat={n_feature})")
+                plt.ylabel("Loss (MSE)")
+                plt.title(f"CNN Loss Evolution ({utils.get_label(class1,dataset)} vs {utils.get_label(class2,dataset)})")
+                plt.legend()
                 plt.grid(True)
                 plt.tight_layout()
+                plt.savefig(f"CNN_loss_curve_{class1}_{class2}_{encoding}.png")
                 plt.show()
 
     print("✅ Results saved to", results_file)
@@ -119,7 +137,7 @@ def Benchmarking_CNN(class_pairs, Encodings, Encodings_size, dataset, iterations
 class_pairs = [(0, 1)]
 Encodings = ['autoencoder']
 Encodings_size = [8]
-dataset = 'mnist'
+dataset = 'fashion_mnist'
 
-# Puedes modificar n_feature para aumentar la complejidad de la red
-Benchmarking_CNN(class_pairs, Encodings, Encodings_size, dataset, iterations=5, optimizer='adam', n_feature=2)
+Benchmarking_CNN(class_pairs, Encodings, Encodings_size, dataset,
+                 iterations=5, optimizer='adam', n_feature=3)

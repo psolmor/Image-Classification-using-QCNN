@@ -8,4 +8,3 @@ def accuracy_test(predictions, labels):
             acc = acc + 1
         counter+=1
     return acc / len(labels)
-

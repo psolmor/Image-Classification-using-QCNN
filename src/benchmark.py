@@ -72,4 +72,3 @@ def benchmark(class_pairs, unitary_arr, embedding, resize, dataset, iterations):
                           f"{std_accuracy * 100:.2f}%\n")
 
     print("Results saved to", results_file)
-
