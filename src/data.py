@@ -3,7 +3,7 @@ import pennylane.numpy as pnp
 import tensorflow as tf
 from tensorflow.keras import layers, losses, Model
 
-def data_load_and_process(class1, class2, resize, dataset="mnist"):
+def data_load_and_process(class1, class2, resize, opt, dataset="mnist"):
     print("Loading data....")
     
     if dataset == 'fashion_mnist':
@@ -15,9 +15,13 @@ def data_load_and_process(class1, class2, resize, dataset="mnist"):
     test_filter = np.isin(y_test, [class1, class2])
     x_train, y_train = x_train[train_filter], y_train[train_filter]
     x_test, y_test = x_test[test_filter], y_test[test_filter]
-
-    y_train = np.where(y_train == class1, 1, -1)
-    y_test = np.where(y_test == class1, 1, -1)
+    
+    if opt=="mse":
+        y_train = np.where(y_train == class1, 1, -1)
+        y_test = np.where(y_test == class1, 1, -1)
+    else:
+        y_train = np.where(y_train == class1, 1, 0)
+        y_test = np.where(y_test == class1, 1, 0)
 
     x_train = x_train[..., np.newaxis] / 255.0
     x_test = x_test[..., np.newaxis] / 255.0
@@ -55,7 +59,6 @@ def data_load_and_process(class1, class2, resize, dataset="mnist"):
 
         autoencoder.fit(x_train, x_train,
                         epochs=10,
-                        batch_size=64,
                         shuffle=True,
                         validation_split=0.1)
 
