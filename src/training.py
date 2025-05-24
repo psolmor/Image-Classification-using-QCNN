@@ -3,6 +3,7 @@
 import pennylane.numpy as pnp
 import numpy as np 
 import pennylane as qml
+import autograd.numpy as anp 
 
 import utils
 import circuit
@@ -34,5 +35,15 @@ def cost(params, X, Y, unitary, embedding):
     return square_loss(Y, predictions)
 
 def square_loss(labels, predictions):
-    loss = pnp.mean((labels - predictions) ** 2)
+    loss = 0
+    for l, p in zip(labels, predictions):
+        loss = loss + (l - p) ** 2
+    loss = loss / len(labels)
     return loss
+
+def cross_entropy(labels, predictions):
+    loss = 0
+    for l, p in zip(labels, predictions):
+        c_entropy = l * (anp.log(p[l])) + (1 - l) * anp.log(1 - p[1 - l])
+        loss = loss + c_entropy
+    return -1 * loss
