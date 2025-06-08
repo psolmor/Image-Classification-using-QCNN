@@ -1,13 +1,13 @@
-# circuit.py
+#circuit.py
 
 import components
-import utils
 import embedding as emb
 import pennylane as qml
 
-dev = qml.device("default.qubit", wires=8)
+dev = qml.device("lightning.qubit", wires=8)
+
 @qml.qnode(dev)
-def QCNN(X, params, unitary, embedding):
+def QCNN(X, params, unitary, embedding,loss):
     emb.data_embedding(X, embedding)
 
     if unitary == "TTN":
@@ -20,7 +20,13 @@ def QCNN(X, params, unitary, embedding):
         raise ValueError("Unitary must be 'CONV' or 'TTN'")
     
     QCNN_structure(params, unitary_func, params_per_unitary)
-    return qml.expval(qml.PauliZ(7))
+
+    if loss == 'mse':
+        result = qml.expval(qml.PauliZ(7))
+    else:
+        result = qml.probs(wires=7)
+
+    return result
 
 
 def QCNN_structure(params, unitary_func, params_per_unitary):

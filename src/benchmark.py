@@ -8,7 +8,7 @@ import time
 import utils
 import numpy as np  # Necesario para cálculos estadísticos
 
-def benchmark(class_pairs, unitary_arr, embedding, resize, dataset, iterations):
+def benchmark(class_pairs, unitary_arr, embedding, resize, dataset, iterations,loss):
     results_file = "results.txt"
     num_iterations = iterations
 
@@ -28,19 +28,19 @@ def benchmark(class_pairs, unitary_arr, embedding, resize, dataset, iterations):
 
                     for iteration in range(num_iterations):
                         x_train, x_test, y_train, y_test = data.data_load_and_process(
-                            class1, class2, resizing_method, dataset
+                            class1, class2, resizing_method, loss,dataset
                         )
 
                         start_time = time.time()
                         trained_params = training.circuit_training(
-                            x_train, y_train, unitary, embedding
+                            x_train, y_train, unitary, embedding,loss
                         )
                         end_time = time.time()
                         training_times.append(end_time - start_time)
 
                         print("Testing...")
                         predictions = [
-                            circuit.QCNN(x, trained_params, unitary, embedding)
+                            circuit.QCNN(x, trained_params, unitary, embedding,loss)
                             for x in x_test
                         ]
                         test_accuracy = testing.accuracy_test(predictions, y_test)

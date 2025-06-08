@@ -3,7 +3,7 @@ import pennylane.numpy as pnp
 import tensorflow as tf
 from tensorflow.keras import layers, losses, Model
 
-def data_load_and_process(class1, class2, resize, opt, dataset="mnist"):
+def data_load_and_process(class1, class2, resize, loss, dataset="mnist"):
     print("Loading data....")
     
     if dataset == 'fashion_mnist':
@@ -16,7 +16,7 @@ def data_load_and_process(class1, class2, resize, opt, dataset="mnist"):
     x_train, y_train = x_train[train_filter], y_train[train_filter]
     x_test, y_test = x_test[test_filter], y_test[test_filter]
     
-    if opt=="mse":
+    if loss=="mse":
         y_train = np.where(y_train == class1, 1, -1)
         y_test = np.where(y_test == class1, 1, -1)
     else:
